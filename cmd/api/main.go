@@ -1,13 +1,19 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	"log"
 
-	_ "github.com/joho/godotenv/autoload"
+	"github.com/GiantSnowMonkey/blog_aggeregator/internal/server"
 )
 
 func main() {
-	port := os.Getenv("PORT")
-	fmt.Println("server port:", port)
+	server, err := server.NewServer()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	log.Println("Running server on port:", server.Addr[1:])
+	err = server.ListenAndServe()
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
