@@ -26,7 +26,7 @@ func NewServer() (*http.Server, error) {
 	server := &http.Server{
 		Addr:        fmt.Sprint(":", newServer.port),
 		IdleTimeout: time.Minute,
-		Handler:     http.NotFoundHandler(),
+		Handler:     newServer.RegisterRoutes(),
 	}
 	return server, err
 }
