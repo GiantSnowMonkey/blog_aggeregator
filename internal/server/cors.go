@@ -1,8 +1,9 @@
 package server
 
 import (
-	"github.com/go-chi/cors"
 	"net/http"
+
+	"github.com/go-chi/cors"
 )
 
 func customCors() func(http.Handler) http.Handler {
