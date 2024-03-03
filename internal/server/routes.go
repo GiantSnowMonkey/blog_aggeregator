@@ -23,6 +23,7 @@ func (s Server) RegisterRoutes() http.Handler {
 	routerV1 := chi.NewRouter()
 	router.Mount("/v1", routerV1)
 	routerV1.Get("/readiness", handlerReadiness)
+	routerV1.Post("/users", apiCfg.handlerUsersCreate)
 
 	return router
 }
