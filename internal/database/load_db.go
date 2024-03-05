@@ -10,7 +10,6 @@ import (
 
 func LoadDB() *Queries {
 	dbProtocol := os.Getenv("DATABASE_URL")
-	println("dbProto:", dbProtocol)
 	if dbProtocol == "" {
 		log.Fatalln("Could not load db protocol from env file")
 	}
