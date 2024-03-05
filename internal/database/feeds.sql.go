@@ -3,7 +3,7 @@
 //   sqlc v1.25.0
 // source: feeds.sql
 
-package databse
+package database
 
 import (
 	"context"

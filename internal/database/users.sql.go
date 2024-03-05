@@ -3,7 +3,7 @@
 //   sqlc v1.25.0
 // source: users.sql
 
-package databse
+package database
 
 import (
 	"context"
@@ -52,4 +52,22 @@ func (q *Queries) GetUserApiKeyByID(ctx context.Context, id pgtype.UUID) (pgtype
 	var api_key pgtype.Text
 	err := row.Scan(&api_key)
 	return api_key, err
+}
+
+const getUserByApiKey = `-- name: GetUserByApiKey :one
+SELECT id, created_at, updated_at, name, api_key FROM users
+WHERE api_key = $1
+`
+
+func (q *Queries) GetUserByApiKey(ctx context.Context, apiKey pgtype.Text) (User, error) {
+	row := q.db.QueryRow(ctx, getUserByApiKey, apiKey)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.Name,
+		&i.ApiKey,
+	)
+	return i, err
 }

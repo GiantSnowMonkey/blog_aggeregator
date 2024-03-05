@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	databse "github.com/GiantSnowMonkey/blog_aggeregator/internal/database"
+	database "github.com/GiantSnowMonkey/blog_aggeregator/internal/database"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
@@ -33,7 +33,7 @@ func (cfg *apiConfig) handlerUsersCreate(w http.ResponseWriter, r *http.Request)
 		return
 	}
 	timeNowTimeStamp := pgtype.Timestamp{Time: time.Now(), Valid: true}
-	user, err := cfg.DB.CreateUser(context.Background(), databse.CreateUserParams{
+	user, err := cfg.DB.CreateUser(context.Background(), database.CreateUserParams{
 		ID:        pgtype.UUID{Bytes: [16]byte(uuid.New()), Valid: true},
 		CreatedAt: timeNowTimeStamp,
 		UpdatedAt: timeNowTimeStamp,
