@@ -18,13 +18,16 @@ func (s Server) RegisterRoutes() http.Handler {
 		DB: dbQueries,
 	}
 	router := chi.NewRouter()
-	router.Use(customCors())
-	router.Use(middleware.Logger)
 	routerV1 := chi.NewRouter()
+
+	router.Use(customCors(), middleware.Logger)
+
 	router.Mount("/v1", routerV1)
+
 	routerV1.Get("/readiness", handlerReadiness)
-	routerV1.Post("/users", apiCfg.handlerUsersCreate)
 	routerV1.Get("/users", apiCfg.middlewareAuth(apiCfg.handlerUsersGet))
+	routerV1.Post("/users", apiCfg.handlerUsersCreate)
+	routerV1.Post("/feeds", apiCfg.middlewareAuth(apiCfg.handlerFeedsCreate))
 
 	return router
 }
