@@ -16,6 +16,8 @@ func (cfg *apiConfig) middlewareAuth(handler authedHandler) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		user, err := cfg.GetUserFromApiKey(r.Header)
 		if err != nil {
+			log.Println("Authorization failed:", err)
+			respondWithError(w, http.StatusUnauthorized, "authorization failed")
 			return
 		}
 		handler(w, r, user)
