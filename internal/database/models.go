@@ -9,18 +9,18 @@ import (
 )
 
 type Feed struct {
-	ID        int32
-	CreatedAt pgtype.Timestamp
-	UpdatedAt pgtype.Timestamp
-	Name      string
-	Url       string
-	UserID    pgtype.UUID
+	ID        int32            `json:"id"`
+	CreatedAt pgtype.Timestamp `json:"created_at"`
+	UpdatedAt pgtype.Timestamp `json:"updated_at"`
+	Name      string           `json:"name"`
+	Url       string           `json:"url"`
+	UserID    pgtype.UUID      `json:"user_id"`
 }
 
 type User struct {
-	ID        pgtype.UUID
-	CreatedAt pgtype.Timestamp
-	UpdatedAt pgtype.Timestamp
-	Name      string
-	ApiKey    pgtype.Text
+	ID        pgtype.UUID      `json:"id"`
+	CreatedAt pgtype.Timestamp `json:"created_at"`
+	UpdatedAt pgtype.Timestamp `json:"updated_at"`
+	Name      string           `json:"name"`
+	ApiKey    pgtype.Text      `json:"api_key"`
 }
