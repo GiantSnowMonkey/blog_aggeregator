@@ -7,11 +7,11 @@ import (
 )
 
 func (cfg *apiConfig) handlerUsersGet(w http.ResponseWriter, r *http.Request, user database.User) {
-	respondWithJSON(w, http.StatusOK, RespondUser{
+	respondWithJSON(w, http.StatusOK, database.User{
 		ID:        user.ID,
 		CreatedAt: user.CreatedAt,
 		UpdatedAt: user.UpdatedAt,
 		Name:      user.Name,
-		ApiKey:    user.ApiKey.String,
+		ApiKey:    user.ApiKey,
 	})
 }

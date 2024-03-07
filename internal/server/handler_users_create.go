@@ -12,14 +12,6 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-type RespondUser struct {
-	ID        pgtype.UUID      `json:"id"`
-	CreatedAt pgtype.Timestamp `json:"created_at"`
-	UpdatedAt pgtype.Timestamp `json:"update_at"`
-	Name      string           `json:"name"`
-	ApiKey    string           `json:"api_key"`
-}
-
 func (cfg *apiConfig) handlerUsersCreate(w http.ResponseWriter, r *http.Request) {
 	type parameters struct {
 		Name string `json:"name"`
@@ -44,11 +36,11 @@ func (cfg *apiConfig) handlerUsersCreate(w http.ResponseWriter, r *http.Request)
 		respondWithError(w, http.StatusBadRequest, err.Error())
 		return
 	}
-	respondWithJSON(w, http.StatusOK, RespondUser{
+	respondWithJSON(w, http.StatusOK, database.User{
 		ID:        user.ID,
 		CreatedAt: user.CreatedAt,
 		UpdatedAt: user.UpdatedAt,
 		Name:      user.Name,
-		ApiKey:    user.ApiKey.String,
+		ApiKey:    user.ApiKey,
 	})
 }
